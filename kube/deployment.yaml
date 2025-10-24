@@ -19,6 +19,22 @@ spec:
           image: kams97/notification_service:latest
           ports:
             - containerPort: 8000
+          livenessProbe:
+            httpGet:
+              path: /healthcheck/live
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /healthcheck/ready
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
           resources:
             limits:
               memory: "512Mi"
