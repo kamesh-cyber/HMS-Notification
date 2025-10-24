@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Request, HTTPException
 from uuid import uuid4
-from app.services.queue_service import worker_started
+from app.services import queue_service
 
 router = APIRouter(prefix="/healthcheck", tags=["Healthcheck"])
 
@@ -16,7 +16,7 @@ async def liveness():
 
 @router.get("/ready")
 async def readiness():
-    if not worker_started:
+    if not queue_service.worker_started:
         # Not ready yet, worker hasn't started
         raise HTTPException(status_code=503, detail="worker not started")
     return {"status": "ready"}

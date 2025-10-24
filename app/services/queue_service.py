@@ -7,14 +7,18 @@ from app.utils.logger import setup_logger
 logger = setup_logger('queue_service')
 __all__ = ["event_queue", "start_queue_worker", "worker_started"]
 
+
+
 event_queue = asyncio.Queue()
-worker_started = False
+worker_started=False
 
 async def start_queue_worker():
     global worker_started
     logger.info("Starting background queue worker...")
     asyncio.create_task(queue_consumer())
     worker_started = True
+    logger.info("Finished Starting Background queue worker...")
+
 
 async def queue_consumer():
     while True:
