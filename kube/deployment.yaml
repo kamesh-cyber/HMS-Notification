@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hms-notification-service-deployment
+  labels:
+    app: notification-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: notification-ms
+  template:
+    metadata:
+      labels:
+        app: notification-ms
+    spec:
+      containers:
+        - name: notification-ms
+          image: kams97/notification_service:latest
+          ports:
+            - containerPort: 8000
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
