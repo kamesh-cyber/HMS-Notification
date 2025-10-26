@@ -103,15 +103,9 @@ The Service definition exposes:
 ## Health & Readiness  
 - Liveness: `/healthcheck/live` (returns alive if process running).  
 - Readiness: `/healthcheck/ready` (200 only after worker started; 503 otherwise).  
-- General: `/healthcheck/` (basic status + trace id).  
-  
-## Extensibility Ideas  
-- Redis/RabbitMQ queue.  
-- Webhook signature verification.  
-- Retry + DLQ.  
-- Prometheus metrics.  
-- Structured JSON + PII masking.  
-  
+- General: `/healthcheck/` (basic status + trace id).
+
+
 ## Troubleshooting  
 - Readiness failing (503): worker not started yet; wait a few seconds after pod start.  
 - No logs: Ensure image uses provided CMD `bash run.sh`.  
@@ -126,4 +120,3 @@ curl $(minikube service notification-service --url)/healthcheck/ready
 ```
 
 ---
-README updated for liveness/readiness probes.
