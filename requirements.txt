@@ -2,3 +2,5 @@ fastapi
 hypercorn
 pydantic
 httpx
+python-multipart
+passlib[bcrypt]

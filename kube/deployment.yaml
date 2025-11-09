@@ -19,9 +19,18 @@ spec:
           image: kams97/notification_service:latest
           ports:
             - containerPort: 8000
+          env:
+            - name: BASIC_AUTH_USERNAME
+              value: "admin"
+            - name: BASIC_AUTH_PASSWORD
+              value: "secret123"
+            - name: ENV
+              value: "production"
+            - name: DEBUG
+              value: "False"
           livenessProbe:
             httpGet:
-              path: /healthcheck/live
+              path: /v1/healthcheck/live
               port: 8000
             initialDelaySeconds: 5
             periodSeconds: 10
@@ -29,7 +38,7 @@ spec:
             failureThreshold: 3
           readinessProbe:
             httpGet:
-              path: /healthcheck/ready
+              path: /v1/healthcheck/ready
               port: 8000
             initialDelaySeconds: 5
             periodSeconds: 10

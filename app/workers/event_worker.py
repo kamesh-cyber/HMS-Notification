@@ -15,7 +15,7 @@ async def process_event(event):
         encoded_credentials = base64.b64encode(credentials.encode('utf-8')).decode('utf-8')
         headers = {"Authorization": f"Basic {encoded_credentials}"}
         patient_id = payload.get("patient_id")
-        response = await client.get(f"http://127.0.0.1:50252/v1/patients/{patient_id}", headers=headers)
+        response = await client.get(f"http://host.docker.internal:8081/v1/patients/{patient_id}", headers=headers)
         patient_details = response.json()
         print(f"[{trace_id}] Patient details: {patient_details}")
     await asyncio.sleep(1)

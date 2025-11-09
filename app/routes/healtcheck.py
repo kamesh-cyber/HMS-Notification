@@ -2,7 +2,7 @@ from fastapi import APIRouter, Request, HTTPException
 from uuid import uuid4
 from app.services import queue_service
 
-router = APIRouter(prefix="/healthcheck", tags=["Healthcheck"])
+router = APIRouter(prefix="/v1/healthcheck", tags=["Healthcheck v1"])
 
 @router.get("/")
 async def healthcheck(request: Request):

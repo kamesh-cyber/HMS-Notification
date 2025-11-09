@@ -1,14 +1,15 @@
-from fastapi import APIRouter, Request, HTTPException
+from fastapi import APIRouter, Request, HTTPException, Depends
 from uuid import uuid4
 from app.models.event_payload import EventPayload
 from app.services.queue_service import event_queue
 from app.utils.logger import setup_logger
+from app.utils.auth import verify_credentials
 
 logger = setup_logger("webhook")
 
-router = APIRouter(prefix="/webhook", tags=["Webhook"])
+router = APIRouter(prefix="/v1/webhook", tags=["Webhook v1"])
 
-@router.post("/events")
+@router.post("/events", dependencies=[Depends(verify_credentials)])
 async def receive_event(payload: EventPayload, request: Request):
     trace_id = str(uuid4())
 
